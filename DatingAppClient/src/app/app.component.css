@@ -1,3 +1,7 @@
 .container{
   margin-top: 100px;
 }
+.loading{
+  color: white;
+  font: 400 20px sans-serif;
+}
