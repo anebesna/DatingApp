@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {Router} from "@angular/router";
 import {ToastrModule, ToastrService} from "ngx-toastr";
+import {MembersService} from "../../services/members.service";
 
 @Component({
   selector: 'app-nav',
