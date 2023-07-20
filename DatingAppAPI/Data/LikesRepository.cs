@@ -47,7 +47,7 @@ public class LikesRepository : ILikesRepository
             UserName = user.UserName,
             KnownAs = user.KnownAs,
             Age = user.BirthDate.CalculateAge(),
-            PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain).Url,
+            MainPhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain).Url,
             City = user.City,
             Id = user.Id
         });
