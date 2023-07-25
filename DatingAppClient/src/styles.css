@@ -1,13 +1,10 @@
 .tab-pane {
   border: 1px solid #ddd;
-  padding: 15px;
+  padding: 10px;
   border-radius: 4px;
 }
-
-.member-tabset > .nav-tabs > li.open > a, .member-tabset > .nav-tabs > li:hover > a {
-  border: 0;
-  background: none !important;
-  color: #333333;
+.nav-tabs > li.open, .member-tabset > .nav-tabs > li:hover {
+  border-bottom: 2px solid #b9cbff;
 }
 
 .member-tabset > .nav-tabs > li.open > a > i, .member-tabset > .nav-tabs > li:hover > a > i {

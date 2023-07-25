@@ -1,29 +1,41 @@
 using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
 using DatingAppAPI.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DatingAppAPI.Data;
 
 public class Seed
 {
-    public static async Task SeedUsers(DataContext context)
+    public static async Task SeedUsers(UserManager<User> userManager, RoleManager<Role> roleManager)
     {
-        if (await context.Users.AnyAsync()) return;
+        if (await userManager.Users.AnyAsync()) return;
         var userData = await File.ReadAllTextAsync("Data/UserSeedData.json");
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         var users = JsonSerializer.Deserialize<List<User>>(userData, options);
+        var roles = new List<Role>
+        {
+            new Role { Name = "Member" },
+            new Role { Name = "Admin" },
+            new Role { Name = "Moderator" }
+        };
+        foreach (var role in roles)
+        {
+            await roleManager.CreateAsync(role);
+        }
         foreach (var user in users)
         {
-            using var hmac = new HMACSHA512();
             user.UserName = user.UserName.ToLower();
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Ps$$w0rd"));
-            user.PasswordSalt = hmac.Key;
-            context.Users.Add(user);
+            await userManager.CreateAsync(user, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(user, "Member");
         }
 
-        await context.SaveChangesAsync();
+        var admin = new User
+        {
+            UserName = "admin"
+        };
+        await userManager.CreateAsync(admin, "Pa$$w0rd");
+        await userManager.AddToRolesAsync(admin, new[]{"Admin", "Moderator"});
     }
 }
