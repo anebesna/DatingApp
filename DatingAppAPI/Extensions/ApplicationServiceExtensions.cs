@@ -2,6 +2,7 @@ using DatingAppAPI.Data;
 using DatingAppAPI.Helpers;
 using DatingAppAPI.Interfaces;
 using DatingAppAPI.Services;
+using DatingAppAPI.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingAppAPI.Extensions;
@@ -23,6 +24,12 @@ public static class ApplicationServiceExtensions
         services.AddScoped<LogUserActivity>();
         services.AddScoped<ILikesRepository, LikesRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();
+        services.AddSignalR(options => 
+        { 
+            options.EnableDetailedErrors = true; 
+        });
+        services.AddSingleton<PresenceTracker>();
+        
         return services;
     }
 }
