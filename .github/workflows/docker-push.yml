@@ -24,5 +24,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:DatingAppAPI"
+          provenance: false
           push: true
           tags: anebesna/daitngapp:latest
