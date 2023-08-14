@@ -26,4 +26,4 @@ jobs:
           context: "{{defaultContext}}:DatingAppAPI"
           provenance: false
           push: true
-          tags: anebesna/daitngapp:latest
+          tags: anebesna/datingapp:latest
